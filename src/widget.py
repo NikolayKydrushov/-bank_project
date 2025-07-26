@@ -1,7 +1,9 @@
+from typing import Union
+
 from src import masks as f
 
 
-def mask_account_card(card_or_account_number):
+def mask_account_card(card_or_account_number: Union[str]) -> str:
     """
     Функция маскировки номера банковской карты или счета
 
@@ -21,5 +23,21 @@ def mask_account_card(card_or_account_number):
     else:
         separation[-1] = f.get_mask_card_number(separation[-1])
 
-    res = ' '.join(separation)
+    res = " ".join(separation)
     return res
+
+
+def get_date(date: Union[str]) -> str:
+    """
+    Функция принимает на вход строку с датой в формате "2024-03-11T02:26:18.671407"
+    и возвращает строку с датой в формате "ДД.ММ.ГГГГ".
+
+    Args:
+        date: Строка в формате: "Год, месяц, число, время".
+
+    Returns:
+        Строку в формате "ДД.ММ.ГГГГ".
+    """
+    final_line = date[8:10] + date[5:7] + date[:5]
+
+    return final_line

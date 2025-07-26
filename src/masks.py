@@ -46,4 +46,3 @@ def get_mask_account(account_number: Union[str, int]) -> str:
     last_four_characters_with_asterisks = "**" + last_four_characters
 
     return last_four_characters_with_asterisks
-#git config --global user.name "Кудряшов Николай"
