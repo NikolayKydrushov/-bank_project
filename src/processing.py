@@ -30,6 +30,7 @@ def sort_by_date(date: list[dict], order: bool = True) -> list[dict]:
     Returns:
         Функция возвращает новый список, отсортированный по дате.
     """
+
     sorted_date = date[:]
 
     sorted_date.sort(key=lambda x: x["date"], reverse=order)
