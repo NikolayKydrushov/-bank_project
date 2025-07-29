@@ -7,5 +7,5 @@
 
 1. Клонируйте репозиторий:
 ```
-
+https://github.com/NikolayKydrushov/-bank_project/tree/master
 ```
