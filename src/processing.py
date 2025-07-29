@@ -20,7 +20,13 @@ def filter_by_state(list_, state = 'EXECUTED'):
 
 
 def sort_by_date(date: list[dict], order: bool = True) -> list[dict]:
+    """
 
+
+    :param date:
+    :param order:
+    :return:
+    """
     sorted_date = date[:]
 
     sorted_date.sort(key= lambda x: x['date'], reverse=order)
