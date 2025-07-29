@@ -1,4 +1,4 @@
-def filter_by_state(list_, state = 'EXECUTED'):
+def filter_by_state(list_, state="EXECUTED"):
     """
     Функция принимает список словарей и опционально значение для ключа
 
@@ -13,7 +13,7 @@ def filter_by_state(list_, state = 'EXECUTED'):
 
     identical_keys = []
     for i in range(len(list_)):
-        if list_[i]['state'] == state:
+        if list_[i]["state"] == state:
             identical_keys.append(list_[i])
 
     return identical_keys
@@ -21,14 +21,17 @@ def filter_by_state(list_, state = 'EXECUTED'):
 
 def sort_by_date(date: list[dict], order: bool = True) -> list[dict]:
     """
+    Функция принимает список словарей и необязательный параметр, задающий порядок сортировки
 
+    Args:
+        date: Список словарей
+        order: Значение сортировки
 
-    :param date:
-    :param order:
-    :return:
+    Returns:
+        Функция возвращает новый список, отсортированный по дате.
     """
     sorted_date = date[:]
 
-    sorted_date.sort(key= lambda x: x['date'], reverse=order)
+    sorted_date.sort(key=lambda x: x["date"], reverse=order)
 
     return sorted_date
