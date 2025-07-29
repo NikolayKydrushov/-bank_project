@@ -19,5 +19,10 @@ def filter_by_state(list_, state = 'EXECUTED'):
     return identical_keys
 
 
-def sort_by_date(list_, date):
-    pass
+def sort_by_date(date: list[dict], order: bool = True) -> list[dict]:
+
+    sorted_date = date[:]
+
+    sorted_date.sort(key= lambda x: x['date'], reverse=order)
+
+    return sorted_date
