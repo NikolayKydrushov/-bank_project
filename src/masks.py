@@ -18,16 +18,21 @@ def get_mask_card_number(card_number: Union[str, int]) -> str:
     last_index = 4
     number_with_spaces = ""
 
-    for i in range(4):
-        number_with_spaces += card_number[first_index:last_index] + " "
-        first_index += 4
-        last_index += 4
+    if card_number.isdigit():
+        if len(card_number) == 16:
 
-    number_with_spaces_and_asterisks = (
-        number_with_spaces[:7] + "** ****" + number_with_spaces[14:-1]
-    )
+            for i in range(4):
+                number_with_spaces += card_number[first_index:last_index] + " "
+                first_index += 4
+                last_index += 4
 
-    return number_with_spaces_and_asterisks
+            number_with_spaces_and_asterisks = (
+                number_with_spaces[:7] + "** ****" + number_with_spaces[14:-1]
+            )
+
+            return number_with_spaces_and_asterisks
+
+    return "Длина номера карты неправильна"
 
 
 def get_mask_account(account_number: Union[str, int]) -> str:
@@ -42,7 +47,12 @@ def get_mask_account(account_number: Union[str, int]) -> str:
     """
     account_number = str(account_number)
 
-    last_four_characters = account_number[-4:]
-    last_four_characters_with_asterisks = "**" + last_four_characters
+    if account_number.isdigit():
+        if len(account_number) == 20:
 
-    return last_four_characters_with_asterisks
+            last_four_characters = account_number[-4:]
+            last_four_characters_with_asterisks = "**" + last_four_characters
+
+            return last_four_characters_with_asterisks
+
+    return "Длина номера карты неправильна"
