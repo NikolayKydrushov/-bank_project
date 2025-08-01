@@ -15,16 +15,17 @@ def mask_account_card(card_or_account_number: Union[str]) -> str:
         Номер разбит по блокам по 4 цифры, разделенным пробелами.
         Маску номера счета, где видны только последние 4 цифры номера, а перед ними — две *.
     """
+    if len(card_or_account_number) > 0:
+        separation = card_or_account_number.split()
 
-    separation = card_or_account_number.split(", ")
+        if separation[0] == "Счет":
+            separation[-1] = f.get_mask_account(separation[-1])
+        else:
+            separation[-1] = f.get_mask_card_number(separation[-1])
 
-    if separation[0] == "Счет":
-        separation[-1] = f.get_mask_account(separation[-1])
-    else:
-        separation[-1] = f.get_mask_card_number(separation[-1])
-
-    res = " ".join(separation)
-    return res
+        res = " ".join(separation)
+        return res
+    return "Длина номера карты неправильна"
 
 
 def get_date(date: Union[str]) -> str:
@@ -38,6 +39,9 @@ def get_date(date: Union[str]) -> str:
     Returns:
         Строку в формате "ДД.ММ.ГГГГ".
     """
-    final_line = date[8:10] + date[5:7] + date[:5]
+    if len(date) > 0:
 
-    return final_line
+        final_line = date[8:10] + '.' + date[5:7] + '.' +date[:4]
+        return final_line
+
+    return "Длина номера карты неправильна"
