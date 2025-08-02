@@ -41,7 +41,7 @@ def get_date(date: Union[str]) -> str:
     """
     if len(date) > 0:
 
-        final_line = date[8:10] + '.' + date[5:7] + '.' +date[:4]
+        final_line = date[8:10] + "." + date[5:7] + "." + date[:4]
         return final_line
 
     return "Длина номера карты неправильна"
