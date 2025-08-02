@@ -12,9 +12,11 @@ def filter_by_state(list_, state="EXECUTED"):
     """
 
     identical_keys = []
-    for i in range(len(list_)):
-        if list_[i]["state"] == state:
-            identical_keys.append(list_[i])
+
+    if len(list_) > 0 or state is not None:
+        for i in range(len(list_)):
+            if list_[i]["state"] == state:
+                identical_keys.append(list_[i])
 
     return identical_keys
 
@@ -30,8 +32,10 @@ def sort_by_date(date: list[dict], order: bool = True) -> list[dict]:
     Returns:
         Функция возвращает новый список, отсортированный по дате.
     """
-    sorted_date = date[:]
+    if len(date) > 0 or order is not None:
+        sorted_date = date[:]
 
-    sorted_date.sort(key=lambda x: x["date"], reverse=order)
+        sorted_date.sort(key=lambda x: x["date"], reverse=order)
 
-    return sorted_date
+        return sorted_date
+    return []
