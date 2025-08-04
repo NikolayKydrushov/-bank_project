@@ -1,10 +1,14 @@
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions, transactions
 
 
-def test_filter_by_currency(fixture_filter_by_currency1, fixture_filter_by_currency2):
+def test_filter_by_currency(fixture_filter_by_currency1,
+                            fixture_filter_by_currency2,
+                            fixture_filter_by_currency3):
+
     generator = filter_by_currency(transactions, "USD")
     assert next(generator) == fixture_filter_by_currency1
     assert next(generator) == fixture_filter_by_currency2
+    assert next(generator) == fixture_filter_by_currency3
 
     try:
         assert (
@@ -24,9 +28,10 @@ def test_filter_by_currency(fixture_filter_by_currency1, fixture_filter_by_curre
 def test_transaction_descriptions():
     generator = transaction_descriptions(transactions)
     assert next(generator) == "Перевод организации"
-    assert next(generator) == "Покупка товаров"
     assert next(generator) == "Перевод со счета на счет"
-    assert next(generator) == "Комиссия за обслуживание"
+    assert next(generator) == "Перевод со счета на счет"
+    assert next(generator) == "Перевод с карты на карту"
+    assert next(generator) == "Перевод организации"
 
     try:
         transaction_descriptions(
