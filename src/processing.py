@@ -1,5 +1,4 @@
-def filter_by_state(list_: list[dict],
-                    state: str = "EXECUTED") -> list:
+def filter_by_state(list_: list[dict], state: str = "EXECUTED") -> list:
     """
     Функция принимает список словарей и опционально значение для ключа
 
@@ -22,8 +21,7 @@ def filter_by_state(list_: list[dict],
     return identical_keys
 
 
-def sort_by_date(date: list[dict],
-                 order: bool = True) -> list[dict]:
+def sort_by_date(date: list[dict], order: bool = True) -> list[dict]:
     """
     Функция принимает список словарей и необязательный параметр, задающий порядок сортировки
 

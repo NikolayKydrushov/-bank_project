@@ -1,9 +1,13 @@
+import pytest
+
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions, transactions
 
 
-def test_filter_by_currency(fixture_filter_by_currency1,
-                            fixture_filter_by_currency2,
-                            fixture_filter_by_currency3):
+def test_filter_by_currency(
+    fixture_filter_by_currency1,
+    fixture_filter_by_currency2,
+    fixture_filter_by_currency3,
+):
 
     generator = filter_by_currency(transactions, "USD")
     assert next(generator) == fixture_filter_by_currency1
@@ -41,10 +45,39 @@ def test_transaction_descriptions():
         pass
 
 
-def test_card_number_generator():
-    generator = card_number_generator(1, 5)
-    assert next(generator) == "0000 0000 0000 0001"
-    assert next(generator) == "0000 0000 0000 0002"
-    assert next(generator) == "0000 0000 0000 0003"
-    assert next(generator) == "0000 0000 0000 0004"
-    assert next(generator) == "0000 0000 0000 0005"
+@pytest.mark.parametrize(
+    "start, end, card_numbers",
+    [
+        (
+            1,
+            5,
+            [
+                "0000 0000 0000 0001",
+                "0000 0000 0000 0002",
+                "0000 0000 0000 0003",
+                "0000 0000 0000 0004",
+                "0000 0000 0000 0005",
+            ],
+        ),
+        (
+            9999999999999998,
+            9999999999999999,
+            [
+                "9999 9999 9999 9998",
+                "9999 9999 9999 9999",
+            ],
+        ),
+        (
+            10,
+            12,
+            [
+                "0000 0000 0000 0010",
+                "0000 0000 0000 0011",
+                "0000 0000 0000 0012",
+            ],
+        ),
+    ],
+)
+def test_card_number_generator(start, end, card_numbers):
+    generator = card_number_generator(start, end)
+    assert list(generator) == card_numbers
