@@ -1,4 +1,4 @@
-def filter_by_state(list_, state="EXECUTED"):
+def filter_by_state(list_: list[dict], state: str = "EXECUTED") -> list:
     """
     Функция принимает список словарей и опционально значение для ключа
 
