@@ -1,13 +1,13 @@
 import json
 import os
+from dotenv import load_dotenv
 
 
 
-
-def open_file(file):
+def open_file(file: str) -> list:
 
     try:
-        with open(file, "r", encoding='utf-8') as f:
+        with open(file, "r", encoding="utf-8") as f:
             date = json.load(f)
             return date
     except json.JSONDecodeError:
@@ -19,10 +19,9 @@ def open_file(file):
     except ValueError:
         return []
 
-directory = 'C:/Skypro/showing_recent_successful_operations/data'
 
-file_path = os.path.join(directory, 'operations.json')
+directory = "C:/Skypro/showing_recent_successful_operations/data/operations.json"
+#
+# file_path = os.path.join(directory, "operations.json")
 
-print(f'Полный путь к файлу: {file_path}')
-
-print(open_file(file_path))
+print(open_file(directory))
