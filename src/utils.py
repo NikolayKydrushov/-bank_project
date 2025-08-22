@@ -8,7 +8,7 @@ def open_file(file: str) -> list:
 
     try:
         with open(file, "r", encoding="utf-8") as f:
-            date = json.load(f)
+            date = f.read()
             return date
     except json.JSONDecodeError:
         return []
