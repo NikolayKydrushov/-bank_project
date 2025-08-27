@@ -1,11 +1,20 @@
 import json
 import os
+from typing import List, Any
+
 from dotenv import load_dotenv
 
 
+def open_file(file: str) -> str | list[Any]:
+    """
+    Функция чтения json файла operations и преобразования его в словарь
 
-def open_file(file: str) -> list:
+    Args:
+        file: Путь к файлу
 
+    Returns:
+        Возвращает список date
+    """
     try:
         with open(file, "r", encoding="utf-8") as f:
             date = f.read()
@@ -21,7 +30,3 @@ def open_file(file: str) -> list:
 
 
 directory = "C:/Skypro/showing_recent_successful_operations/data/operations.json"
-#
-# file_path = os.path.join(directory, "operations.json")
-
-print(open_file(directory))
