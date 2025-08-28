@@ -1,5 +1,4 @@
 import json
-from typing import Any
 
 
 def open_file(file: str) -> list:

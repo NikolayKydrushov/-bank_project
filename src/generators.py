@@ -68,7 +68,7 @@ def filter_by_currency(
     transactions: list[dict], currency: str
 ) -> Generator[dict, Any, None]:
 
-    if len(transactions) > 0 and not currency == None:
+    if len(transactions) > 0 and currency is not None:
         for transaction in transactions:
             if (
                 "operationAmount" in transaction
@@ -89,7 +89,7 @@ def card_number_generator(
     initial_values: Any, final_values: Any
 ) -> Generator[str, Any, None]:
 
-    if not initial_values == None and not final_values == None:
+    if initial_values is not None and final_values is not None:
         for i in range(initial_values, final_values + 1):
             card_number = str(i)
             number_zeros = 16 - len(card_number)
