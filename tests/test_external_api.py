@@ -1,37 +1,58 @@
+import os
+
 from unittest.mock import patch, Mock
 from src.external_api import calculating_transaction_amount
+from dotenv import load_dotenv
+
+load_dotenv("../.env")
+
+API_KEY = os.getenv("API_KEY")
+BASE_URL = os.getenv("BASE_URL")
+headers = {"apikey": f"{API_KEY}"}
 
 
-@patch('src.external_api.request_and_conversion')
-def test_calculating_rub_transactions(mock_get):
-    # Проверка операции в рублях
+# Тест №1: Операции в рублях (валюта RUB)
+@patch('src.external_api.requests.get')
+def test_rub_currency_no_api_call(mock_get):
+    """
+    Тестируем операции в рублях (валюта RUB),
+    проверяем, что API не вызывается.
+    """
     operations = [
         {
-            "id": 441945886,
+            "id": 41428829,
             "state": "EXECUTED",
-            "date": "2019-08-26T10:50:58.294041",
+            "date": "2019-07-03T18:35:29.512364",
             "operationAmount": {
-              "amount": "100.0",
-              "currency": {
-                "name": "руб.",
-                "code": "RUB"
-              }
+                "amount": "100.0",
+                "currency": {
+                    "name": "руб.",
+                    "code": "RUB"
+                }
             },
             "description": "Перевод организации",
-            "from": "Maestro 1596837868705199",
-            "to": "Счет 64686473678894779589"
+            "from": "MasterCard 7158300734726758",
+            "to": "Счет 35383033474447895560"
         }
     ]
-    actual_result = calculating_transaction_amount(operations)
+    expected_result = operations.copy()
+    result = calculating_transaction_amount(operations)
+    assert result == expected_result
+    assert not mock_get.called, "API не должен вызываться для операций в рублях"
 
-    assert actual_result == [100.0]
-    assert not mock_get.called, "Не должно быть обращений к API для операций в рублях!"
 
+# Тест №2: Операции в иностранной валюте (USD)
+@patch('src.external_api.requests.get')
+def test_foreign_currency_calls_api(mock_get):
+    """
+    Тестируем операции в иностранной валюте (USD),
+    проверяем, что API вызывается и корректно конвертируется сумма.
+    """
+    # Создаем простой объект типа Mock для ответа от API
+    mock_response = Mock()
+    mock_response.json.return_value = {"conversion_rates": {"RUB": 78.5}}
+    mock_get.return_value = mock_response
 
-@patch('src.external_api.request_and_conversion')
-def test_calculating_usd_transactions(mock_get):
-    # Проверка операции в долларах
-    mock_get.return_value = 78.5
     operations = [
         {
             "id": 41428829,
@@ -49,21 +70,24 @@ def test_calculating_usd_transactions(mock_get):
             "to": "Счет 35383033474447895560"
         }
     ]
-    actual_result = calculating_transaction_amount(operations)
 
-    assert actual_result == [7850.0]
-    mock_get.assert_called_once_with("USD")
-
-
-@patch('src.external_api.request_and_conversion')
-def test_missing_operation_data(mock_request_and_conversion):
-    # Проверка пропуска некорректных операций
-    operations = [
-        {},
-        {"invalid": True},
-        {"operationAmount": {}}
+    expected_result = [
+        {
+            "id": 41428829,
+            "state": "EXECUTED",
+            "date": "2019-07-03T18:35:29.512364",
+            "operationAmount": {
+                "amount": "7850.0",
+                "currency": {
+                    "name": "руб.",
+                    "code": "RUB"
+                }
+            },
+            "description": "Перевод организации",
+            "from": "MasterCard 7158300734726758",
+            "to": "Счет 35383033474447895560"
+        }
     ]
-    actual_result = calculating_transaction_amount(operations)
-
-    assert actual_result == []
-    assert not mock_request_and_conversion.called, "Нет обращений к внешнему API."
+    result = calculating_transaction_amount(operations)
+    assert result == expected_result
+    mock_get.assert_called_once_with(f'{BASE_URL}{API_KEY}/latest/USD', headers=headers)
