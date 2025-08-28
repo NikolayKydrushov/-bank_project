@@ -18,8 +18,7 @@ def test_rub_currency_no_api_call(mock_get):
     Тестируем операции в рублях (валюта RUB),
     проверяем, что API не вызывается.
     """
-    operations = [
-        {
+    operations = {
             "id": 41428829,
             "state": "EXECUTED",
             "date": "2019-07-03T18:35:29.512364",
@@ -34,10 +33,9 @@ def test_rub_currency_no_api_call(mock_get):
             "from": "MasterCard 7158300734726758",
             "to": "Счет 35383033474447895560"
         }
-    ]
-    expected_result = operations.copy()
+
     result = calculating_transaction_amount(operations)
-    assert result == expected_result
+    assert result == 100.0
     assert not mock_get.called, "API не должен вызываться для операций в рублях"
 
 
@@ -53,8 +51,7 @@ def test_foreign_currency_calls_api(mock_get):
     mock_response.json.return_value = {"conversion_rates": {"RUB": 78.5}}
     mock_get.return_value = mock_response
 
-    operations = [
-        {
+    operations = {
             "id": 41428829,
             "state": "EXECUTED",
             "date": "2019-07-03T18:35:29.512364",
@@ -69,25 +66,7 @@ def test_foreign_currency_calls_api(mock_get):
             "from": "MasterCard 7158300734726758",
             "to": "Счет 35383033474447895560"
         }
-    ]
 
-    expected_result = [
-        {
-            "id": 41428829,
-            "state": "EXECUTED",
-            "date": "2019-07-03T18:35:29.512364",
-            "operationAmount": {
-                "amount": "7850.0",
-                "currency": {
-                    "name": "руб.",
-                    "code": "RUB"
-                }
-            },
-            "description": "Перевод организации",
-            "from": "MasterCard 7158300734726758",
-            "to": "Счет 35383033474447895560"
-        }
-    ]
     result = calculating_transaction_amount(operations)
-    assert result == expected_result
+    assert result == 7850.0
     mock_get.assert_called_once_with(f'{BASE_URL}{API_KEY}/latest/USD', headers=headers)
