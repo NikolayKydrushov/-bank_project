@@ -53,4 +53,4 @@ def calculating_transaction_amount(operation: dict) -> float:
 #     print(calculating_transaction_amount(data_str[i]))
 
 # Пример вызова функции конвертации в рубли
-print(calculating_transaction_amount(data_str[1]))
+# print(calculating_transaction_amount(data_str[0]))

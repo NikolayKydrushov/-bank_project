@@ -1,20 +1,21 @@
 import json
 
 
-def open_file(file: str) -> list:
+def open_file(file_: str) -> list[dict]:
     """
-    Функция чтения json файла operations и преобразования его в словарь
+    Функция чтения json файла operations и преобразования его в словарь.
 
     Args:
-        file: Путь к файлу
+        file_: Путь к файлу
 
     Returns:
-        Возвращает список date
+        Возвращает список словарей data из json файла operations.
     """
     try:
-        with open(file, "r", encoding="utf-8") as f:
-            date = json.load(f)
-            return date
+        with open(file_, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            return data
+
     except json.JSONDecodeError:
         return []
     except FileNotFoundError:
@@ -25,4 +26,6 @@ def open_file(file: str) -> list:
         return []
 
 
-directory = "C:/Skypro/showing_recent_successful_operations/data/operations.json"
+directory = "data/operations.json"
+result = open_file(directory)
+print(result)
