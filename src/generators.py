@@ -66,9 +66,19 @@ transactions = [
 
 def filter_by_currency(
     transactions: list[dict], currency: str
-) -> Generator[dict, Any, None]:
+    ) -> Generator[dict, Any, None]:
+    """
+    Функция принимает на вход список словарей, представляющих транзакции.
 
-    if len(transactions) > 0 and not currency == None:
+    Args:
+        transactions: Список словарей транзакций
+        currency: Валюта
+
+    Returns:
+        Функция возвращает генератор, который поочередно выдает транзакции, где валюта операции соответствует заданной.
+    """
+
+    if len(transactions) > 0 and currency is not None:
         for transaction in transactions:
             if (
                 "operationAmount" in transaction
@@ -80,6 +90,21 @@ def filter_by_currency(
 
 
 def transaction_descriptions(transactions: list[dict]) -> Generator[dict, Any, None]:
+    """
+    Генератор, который принимает список словарей с транзакциями и возвращает описание каждой операции по очереди.
+
+    Args:
+        transactions: Список словарей транзакций
+
+    Returns:
+        Генератор возвращает описание каждой операции по очереди.
+        Пример:
+            Перевод организации
+            Перевод со счета на счет
+            Перевод со счета на счет
+            Перевод с карты на карту
+            Перевод организации
+    """
     if len(transactions) > 0:
         for transaction in transactions:
             yield transaction["description"]
@@ -87,9 +112,19 @@ def transaction_descriptions(transactions: list[dict]) -> Generator[dict, Any, N
 
 def card_number_generator(
     initial_values: Any, final_values: Any
-) -> Generator[str, Any, None]:
+    ) -> Generator[str, Any, None]:
+    """
+    Генератор, который выдает номера банковских карт в формате XXXX_XXXX_XXXX_XXXX, где X — цифра номера карты.
 
-    if not initial_values == None and not final_values == None:
+    Args:
+        initial_values: Начальное значение для генерации диапазона номеров
+        final_values: Конечное значение для генерации диапазона номеров
+
+    Returns:
+        Генератор возвращает номера карт из заданного диапазона.
+    """
+
+    if initial_values is not None and final_values is not None:
         for i in range(initial_values, final_values + 1):
             card_number = str(i)
             number_zeros = 16 - len(card_number)
