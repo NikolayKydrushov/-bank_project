@@ -27,7 +27,7 @@ def open_file(file_: str) -> list[dict]:
             return data
 
     except json.JSONDecodeError as js_:
-        logger.info(f'Ошибка {js_}')
+        logger.error(f'Ошибка {js_}')
         return []
     except FileNotFoundError as fnf:
         logger.error(f'Ошибка {fnf}')

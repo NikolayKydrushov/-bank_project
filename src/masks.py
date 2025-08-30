@@ -54,7 +54,7 @@ def get_mask_card_number(card_number: Union[str, int]) -> str:
 
             return number_with_spaces_and_asterisks
 
-    logger.info('Длина номера карты неправильна')
+    logger.warning('Длина номера карты неправильна')
     return "Длина номера карты неправильна"
 
 
@@ -81,7 +81,7 @@ def get_mask_account(account_number: Union[str, int]) -> str:
 
             return last_four_characters_with_asterisks
 
-    logger.info('Длина номера счета неправильна')
+    logger.warning('Длина номера счета неправильна')
     return "Длина номера счета неправильна"
 
 
