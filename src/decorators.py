@@ -44,9 +44,11 @@ def log(filename=None):
                     print(error_line)
 
             return result
+
         return wrapper
 
     return decorator
+
 
 """
 @log(filename="mylog.txt")
