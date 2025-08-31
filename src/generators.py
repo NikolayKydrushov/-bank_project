@@ -66,7 +66,7 @@ transactions = [
 
 def filter_by_currency(
     transactions: list[dict], currency: str
-    ) -> Generator[dict, Any, None]:
+) -> Generator[dict, Any, None]:
     """
     Функция принимает на вход список словарей, представляющих транзакции.
 
@@ -112,7 +112,7 @@ def transaction_descriptions(transactions: list[dict]) -> Generator[dict, Any, N
 
 def card_number_generator(
     initial_values: Any, final_values: Any
-    ) -> Generator[str, Any, None]:
+) -> Generator[str, Any, None]:
     """
     Генератор, который выдает номера банковских карт в формате XXXX_XXXX_XXXX_XXXX, где X — цифра номера карты.
 

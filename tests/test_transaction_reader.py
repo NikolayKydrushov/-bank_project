@@ -48,10 +48,8 @@ def test_read_csv(mock_read_csv, transactions):
 
     mock_read_csv.return_value = pd.DataFrame(transactions)
 
-    # Запуск функции с любым именем файла
     result = csv_reader('date/fake/file.csv')
 
-    # Проверка правильности возвращаемого результата
     assert isinstance(result, list)
     assert result == transactions
 
@@ -65,10 +63,8 @@ def test_read_empty_csv(mock_read_csv):
 
     fake_file_path = "empty_file.csv"
 
-    # Получаем результат вызова функции
     result = csv_reader(fake_file_path)
 
-    # Проверяем, что функция вернула пустой список
     assert isinstance(result, list)
     assert result == []
 
@@ -79,10 +75,8 @@ def test_xlsx_reader(mock_read_csv, transactions):
 
     mock_read_csv.return_value = pd.DataFrame(transactions)
 
-    # Запуск функции с любым именем файла
     result = xlsx_reader('date/fake/file.xlsx')
 
-    # Проверка правильности возвращаемого результата
     assert isinstance(result, list)
     assert result == transactions
 
@@ -96,10 +90,8 @@ def test_xlsx_empty_reader(mock_read_xlsx):
 
     fake_file_path = "empty_file.xlsx"
 
-    # Получаем результат вызова функции
     result = xlsx_reader(fake_file_path)
 
-    # Проверяем, что функция вернула пустой список
     assert isinstance(result, list)
     assert result == []
 
@@ -123,10 +115,8 @@ def test_invalid_format():
     try:
         xlsx_reader(invalid_file_path)
     except IOError as e:
-        # Предположим, что тут ошибка ввода-вывода произошла
         assert True, "Исключение IOError было вызвано"
     except Exception as other_e:
-        # Любое другое исключение недопустимо
         assert False, f"Получено неожиданное исключение: {other_e}"
     else:
         raise AssertionError("Нет ошибки при попытке открыть неподдерживаемый формат файла!")

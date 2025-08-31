@@ -1,7 +1,5 @@
-import time
-
-import os
 import pandas as pd
+
 # from dotenv import load_dotenv
 #
 # load_dotenv("../.env")
@@ -10,7 +8,7 @@ import pandas as pd
 # PATH_XLSX_FILE = os.getenv("PATH_XLSX_FILE")
 
 PATH_CSV_FILE = "data/transactions.csv"
-PATH_XLSX_FILE = 'data/transactions_excel.xlsx'
+PATH_XLSX_FILE = "data/transactions_excel.xlsx"
 
 
 def csv_reader(file_path: str) -> list[dict]:
@@ -51,5 +49,4 @@ def xlsx_reader(file_path: str) -> list[dict]:
 
 
 # print(csv_reader(str(PATH_CSV_FILE)))
-# time.sleep(3)
 # print(xlsx_reader(str(PATH_XLSX_FILE)))
