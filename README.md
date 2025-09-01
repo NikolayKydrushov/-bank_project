@@ -69,7 +69,7 @@ card_number_generator(initial_values, final_values)
 open_file(file_)
 ```
 
-### 6. Модуль 
+### 6. Модуль external_api
 Функция принимает на вход транзакцию и возвращает сумму транзакции в рублях.
     Если транзакция была в USD или EUR, происходит обращение к внешнему API
     для получения текущего курса валют и конвертации суммы операции в рубли. Возвращает конвертируемую валюту в рублях типа float
@@ -77,3 +77,12 @@ open_file(file_)
 calculating_transaction_amount(operation)
 ```
 
+### 7. Модуль transaction_reader
+7.1 Функция открытия и чтения файла transactions.csv. Возвращает список словарей с данными из указанного файла.
+```
+csv_reader(file_path)
+```
+7.2 Функция открытия и чтения файла transactions_excel.xlsx. Возвращает список словарей с данными из указанного файла.
+```
+xlsx_reader(file_path)
+```
