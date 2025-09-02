@@ -45,3 +45,7 @@ def get_date(date: Union[str]) -> str:
         return final_line
 
     return "Длина номера карты неправильна"
+
+
+# "2019-09-07T07:20:13.889610"
+# print(get_date("2019-09-07T07:20:13.889610"))
