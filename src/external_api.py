@@ -3,7 +3,7 @@ import os
 import requests
 from dotenv import load_dotenv
 
-from src.utils import directory, open_file
+from src.utils import open_file
 
 load_dotenv("../.env")
 
@@ -12,6 +12,7 @@ BASE_URL = os.getenv("BASE_URL")
 # API_KEY=4f4ab138d65eac52a10e8133
 # BASE_URL = https://v6.exchangerate-api.com/v6/
 
+directory = "data/operations.json"
 data_str = open_file(directory)
 headers = {"apikey": f"{API_KEY}"}
 
